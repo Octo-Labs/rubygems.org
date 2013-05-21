@@ -1,18 +1,6 @@
 <% if dependencies.present? && @latest_version.indexed %>
   <div class="dependencies" id="<%= dependencies.first.scope %>_dependencies">
     <h5><%= t '.header', :title => dependencies.first.scope.titleize %></h5>
-    <ol>
-    <% dependencies.each do |dependency| %>
-      <% if rubygem = dependency.rubygem %>
-      <li>
-        <a href="<%= rubygem_url(rubygem) %>">
-          <strong><%= rubygem.name %></strong> <%= dependency.clean_requirements %>
-        </a>
-        </li>
-      <% elsif name = dependency.unresolved_name %>
-        <strong><%= name %></strong> <%= dependency.clean_requirements %>
-      <% end %>
-    <% end %>
-    </ol>
+    <%= render 'rubygems/dependency_list', :dependencies => dependencies, :version => version, :dep_list => [] %>
   </div>
 <% end %>

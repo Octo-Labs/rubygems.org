@@ -785,6 +785,17 @@ table {
   text-decoration: underline;
 }
 
+.main .info .meta .dependencies ol{
+  font-size: 1.4em;
+}
+
+.main .info .meta .dependencies ol li ol{
+  padding-left:10px;
+  border:0px solid black;
+  margin-top:0px;
+  font-size:100%;
+}
+
 .main .info .meta ol {
   font-size: 1.3em;
   margin: 1em 0 0;

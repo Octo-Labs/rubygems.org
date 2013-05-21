@@ -1,0 +1,31 @@
+<% dependency_scope = 'development' %>
+<% puts "doing dep list for #{version.full_name} : #{dependencies.to_json}" %>
+<ol>
+<% dependencies.each do |dependency| %>
+  <%# This is to avoid an infinite loop with circular dependencies %>
+  <% next if dep_list.include?(dependency.name) %>
+  <% dep_list << dependency.name %>
+
+  <% rubygem = dependency.rubygem %>
+  
+  <li>
+  <% if rubygem.present? %>
+    <% gem_version = rubygem.versions.most_recent %>
+    <a href="<%= rubygem_url(rubygem) %>">
+      <strong><%= rubygem.name %></strong> <%= dependency.clean_requirements %>
+    </a>
+    
+    <% sub_deps = gem_version.dependencies.send(dependency_scope) %>
+    <% if sub_deps.any? %>
+      <%= render 'rubygems/dependency_list', 
+        :dependencies => sub_deps,
+        :version => gem_version,
+        :dep_list => dep_list
+      %>
+    <% end %>
+  <% elsif name = dependency.unresolved_name %>
+    <strong><%= name %></strong> <%= dependency.clean_requirements %>
+  <% end %>
+  </li>
+<% end %>
+</ol>

@@ -98,8 +98,14 @@
       </div>
     <% end %>
 
-      <%= render :partial => "rubygems/dependencies", :locals => { :dependencies => @latest_version.dependencies.runtime } %>
-      <%= render :partial => "rubygems/dependencies", :locals => { :dependencies => @latest_version.dependencies.development } %>
+    <%= render "rubygems/dependencies", 
+      :dependencies => @latest_version.dependencies.runtime,
+      :version => @latest_version
+    %>
+    <%= render"rubygems/dependencies",
+      :dependencies => @latest_version.dependencies.development,
+      :version => @latest_version
+    %>
     </div>
   </div>
 <% end %>
